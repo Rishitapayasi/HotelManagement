@@ -1,7 +1,6 @@
 class BookingsController < ApplicationController
-  
   skip_before_action :check_owner
-	before_action :set_params, only: [:show, :destroy]
+  before_action :set_params, only: [:show, :destroy]
 
 	def create
 		@booking = @current_user.bookings.new(booking_params)
@@ -13,15 +12,13 @@ class BookingsController < ApplicationController
 		end		
 	end
 	
-
-	def index
+  def index
 		bookings = @current_user.bookings
 		return render json: { message: 'No Booking found' } unless bookings.present?
 		render json: bookings, status: :ok
  	end
 
-
-	def show
+  def show
 		return render json: @booking, status: :ok if @booking.present?
 	end
 
@@ -43,5 +40,4 @@ class BookingsController < ApplicationController
 			render json: { message: 'Booking not found' }, status: :not_found
 		end
 	end
-
 end
