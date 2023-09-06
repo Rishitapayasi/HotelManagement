@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :customers
+  resource :customers
   resources :bookings
   resource :users
   post 'user/login', to: 'users#login'
@@ -7,9 +7,9 @@ Rails.application.routes.draw do
   # put 'users', to: 'users#update'
   # delete 'users', to: 'users#destroy'
 
-  # post '/auth/login', to: 'authentications#login'
+ 
 
-  resources :hotels
+  resource :hotels
   get '/search_by_location', to: 'hotels#search_hotel_by_location'
   get '/search_hotel_by_name', to: 'hotels#search_hotel_by_name'
 
@@ -17,4 +17,5 @@ Rails.application.routes.draw do
   get '/room/list', to: 'rooms#room_list_by_hotel_id'
 
   get '/open_hotel', to: 'customers#open_hotel'
+  
 end

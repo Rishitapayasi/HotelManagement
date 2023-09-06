@@ -5,7 +5,7 @@ class HotelsController < ApplicationController
 
   def index
     hotels = Hotel.all
-    render json: hotels
+    render json: hotels.page(params[:page])
   end
 
   def show
@@ -15,6 +15,7 @@ class HotelsController < ApplicationController
 
   def create
     hotel = @current_user.hotels.new(hotel_params)
+  
     if hotel.save
       render json: hotel, status: :created
     else
@@ -22,6 +23,15 @@ class HotelsController < ApplicationController
     end
   end
    
+  def update
+    
+    if @current_user.update(hotel_params)
+      debugger
+      render json: { message: 'hotel updated' }
+    else
+      render json: { errors: @current_user.errors.full_messages }
+    end
+  end
   	
 	def destroy
 		if @hotel
@@ -31,11 +41,11 @@ class HotelsController < ApplicationController
 	end
 
   def search_hotel_by_location
-		name = params[:name]
-		if name.blank?
+		location = params[:location]
+		if location.blank?
 			return render json: "Location can't be blank"
 		end
-		hotels = Hotel.where('locations LIKE  ?', "%#{name}%")
+		hotels = Hotel.where('location LIKE  ?', "%#{location}%")
 		render json: hotels
   	end
 	

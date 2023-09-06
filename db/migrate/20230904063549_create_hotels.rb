@@ -4,7 +4,7 @@ class CreateHotels < ActiveRecord::Migration[7.0]
       t.string :name
       t.string :location
       t.integer :status
-      t.references :user, foreign_key: 'owner_id'
+      t.references :user,  null: false, foreign_key: true
 
       t.timestamps
     end

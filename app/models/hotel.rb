@@ -1,10 +1,12 @@
 class Hotel < ApplicationRecord
-  belongs_to :owner, class_name: 'User', foreign_key: 'owner_id'
+  belongs_to :user
   has_many :rooms, dependent: :destroy
   has_many :bookings
- 
+
+  enum :status, [:open, :closed]
   validates :name, :location, presence: true
-  enum :status, %i[open closed]
+  validate :owner_only_add_hotel
+  
   private
   def owner_only_add_hotel
     unless user.type == "Owner"

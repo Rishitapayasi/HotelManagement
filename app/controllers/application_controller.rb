@@ -15,9 +15,9 @@ class ApplicationController < ActionController::API
 		end  
   end 
 
-  def current_user
-		@current_user
-	end
+  # def current_user
+	# 	@current_user
+	# end
 
   def check_owner
     render json: { message: 'You are not owner' } unless @current_user.type == 'Owner'

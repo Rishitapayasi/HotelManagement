@@ -4,10 +4,11 @@ class BookingsController < ApplicationController
 
 	def create
 		@booking = @current_user.bookings.new(booking_params)
+   
 		if @booking.save
-			render json: { message: 'Room Booked successfully' }, status: :ok
+      render json: { message: 'Room Booked successfully' }, status: :ok
 		else
-			render json: { error: @booking.errors.full_messages }, status: :unprocessable_entity
+      render json: { error: @booking.errors.full_messages }, status: :unprocessable_entity
 			return
 		end		
 	end
@@ -31,7 +32,7 @@ class BookingsController < ApplicationController
 
 	private
 	def booking_params
-		params.require(:bookings).permit(:room_no, :check_in_date, :check_out_date :hotel_id, :room_id)
+		params.permit(:name, :check_in_date, :check_out_date, :hotel_id, :room_id)
 	end
 
   def set_params
