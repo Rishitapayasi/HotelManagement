@@ -19,7 +19,8 @@ module HotelManagement
       parsable_files = files.filter { |file| file.end_with?('.rb') }
       system("bundle exec rubocop -A --fail-level=E #{parsable_files.shelljoin}", exception: true)
     end
-
+    
+    config.autoloader = :classic
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

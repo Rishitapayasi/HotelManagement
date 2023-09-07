@@ -1,15 +1,18 @@
 class Booking < ApplicationRecord
-  validates :check_in_date, :check_out_date, presence: true
-
+  
   belongs_to :user
   belongs_to :room
   belongs_to :hotel
+ 
+  validates :check_in_date, :check_out_date, presence: true
+  validate :unique_room_booking
 
   private
 
-  def one_user_cant_book_room_again
-    if user.bookings.exists?(room_id: room_id)
-      errors.add(:base, "You have booked this room already")
+  def unique_room_booking 
+    existing_booking = Booking.find_by(room: room_id, check_in_date: check_in_date, hotel_id: hotel_id ) 
+    if existing_booking.present?
+      errors.add(:base, "this room is already booked!!")
     end
   end
 end

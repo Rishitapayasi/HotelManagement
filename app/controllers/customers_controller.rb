@@ -1,12 +1,11 @@
 class CustomersController < ApplicationController
   skip_before_action :check_owner
 
-  def index
-    redirect_to '/hotels'
+  def index 
+    if params[:status]
+      hotels = Hotel.where(status: 'open')
+      render json: hotels
+    else
+      redirect_to '/hotels'
+    end
   end
-
-  def open_hotel
-    hotels = Hotel.where(status: 'open')
-    render json: hotels
-  end
-end

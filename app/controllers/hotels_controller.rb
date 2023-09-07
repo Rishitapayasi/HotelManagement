@@ -3,33 +3,41 @@ class HotelsController < ApplicationController
   skip_before_action :check_owner, only: [:index, :search_hotel_by_location, :search_hotel_by_name]
   before_action :set_params, only: [:show, :destroy]
 
-  def index
+  def index 
     hotels = Hotel.all
-    render json: hotels.page(params[:page])
+
+    if params[:location]
+      debugger
+      hotels = Hotel.where('location LIKE  ?', "%#{params[:location]}%")
+		elsif params[:name]
+      hotels = Hotel.where('name LIKE ?', "%#{ params[:name]}%")
+    end 
+
+    render json: hotels.page(params[:page]).per(params[:per_page]) 
   end
 
   def show
     hotel = @current_user.hotels
-    render json: hotel
+    render json: hotel, serializer: HotelSerializer
   end
 
   def create
     hotel = @current_user.hotels.new(hotel_params)
-  
+
     if hotel.save
-      render json: hotel, status: :created
+      render json: hotel, serializer: HotelSerializer 
     else
       render json: { error: hotel.errors.full_messages }, status: :unprocessable_entity
     end
   end
    
   def update
-    
-    if @current_user.update(hotel_params)
-      debugger
+    @hotel = @current_user.hotels.find(params[:id])
+
+    if @hotel.update(hotel_params)
       render json: { message: 'hotel updated' }
     else
-      render json: { errors: @current_user.errors.full_messages }
+      render json: { errors: @hotel.errors.full_messages }
     end
   end
   	
@@ -38,24 +46,6 @@ class HotelsController < ApplicationController
 			@hotel.destroy
 			render json: { message: "Hotel Deleted !!!" }, status: :ok
 		end
-	end
-
-  def search_hotel_by_location
-		location = params[:location]
-		if location.blank?
-			return render json: "Location can't be blank"
-		end
-		hotels = Hotel.where('location LIKE  ?', "%#{location}%")
-		render json: hotels
-  	end
-	
-	def search_hotel_by_name
-		name = params[:name]
-		if name.blank?
-			return render json: "Hotel name can't be blank"
-		end
-		hotel = Hotel.where("name LIKE ?", "%#{name}%")
-		render json: hotel
 	end
 
   private

@@ -1,12 +1,11 @@
 class BookingsController < ApplicationController
   skip_before_action :check_owner
-  before_action :set_params, only: [:show, :destroy]
+  before_action :set_bookings, only: [:show, :destroy]
 
 	def create
 		@booking = @current_user.bookings.new(booking_params)
-   
-		if @booking.save
-      render json: { message: 'Room Booked successfully' }, status: :ok
+    if @booking.save
+      render json: @booking, serializer: BookingSerializer
 		else
       render json: { error: @booking.errors.full_messages }, status: :unprocessable_entity
 			return
@@ -14,13 +13,13 @@ class BookingsController < ApplicationController
 	end
 	
   def index
-		bookings = @current_user.bookings
-		return render json: { message: 'No Booking found' } unless bookings.present?
+		bookings = Booking.all
+
 		render json: bookings, status: :ok
  	end
 
   def show
-		return render json: @booking, status: :ok if @booking.present?
+		return render json: @booking, status: :ok 
 	end
 
 	def destroy
@@ -35,7 +34,7 @@ class BookingsController < ApplicationController
 		params.permit(:name, :check_in_date, :check_out_date, :hotel_id, :room_id)
 	end
 
-  def set_params
+  def set_bookings
 		@booking = Booking.find_by(id: params[:id])
 		unless @booking
 			render json: { message: 'Booking not found' }, status: :not_found
