@@ -8,4 +8,5 @@ class CustomersController < ApplicationController
     else
       redirect_to '/hotels'
     end
-  end
+  end 
+end
