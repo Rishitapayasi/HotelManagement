@@ -1,12 +1,11 @@
 class HotelSerializer < ActiveModel::Serializer
-  attributes :name, :location, :status, :id, :owner, :room
+  attributes :name, :location, :status, :id, :owner
 
-  def room
-    object.rooms
-  end
+  has_many :rooms
 
   def owner 
     object.user.full_name
   end
-
+   
+ 
 end

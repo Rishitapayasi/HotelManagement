@@ -3,6 +3,7 @@ class ApplicationController < ActionController::API
   before_action :authenticate_request
   before_action :check_owner
   before_action :check_customer
+  
 
   def authenticate_request
 		begin

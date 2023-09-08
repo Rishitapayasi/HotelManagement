@@ -1,13 +1,12 @@
 class HotelsController < ApplicationController
   skip_before_action :check_customer
-  skip_before_action :check_owner, only: [:index, :search_hotel_by_location, :search_hotel_by_name]
+  skip_before_action :check_owner
   before_action :set_params, only: [:show, :destroy]
-
+   
   def index 
     hotels = Hotel.all
 
     if params[:location]
-      debugger
       hotels = Hotel.where('location LIKE  ?', "%#{params[:location]}%")
 		elsif params[:name]
       hotels = Hotel.where('name LIKE ?', "%#{ params[:name]}%")
@@ -42,16 +41,20 @@ class HotelsController < ApplicationController
   end
   	
 	def destroy
+
 		if @hotel
 			@hotel.destroy
 			render json: { message: "Hotel Deleted !!!" }, status: :ok
-		end
+    end
+    rescue ActiveRecord::RecordNotFound => error
+      render json: { error: error.message }, status: :not_found
+	
 	end
 
   private
 
   def hotel_params
-    params.permit(:name, :location, :status)
+    params.permit(:name, :location, :status, images: [])
   end
 
   def set_params

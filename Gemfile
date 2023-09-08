@@ -49,7 +49,10 @@ gem 'bootsnap', require: false
 
 # gem 'actionpack', '~> 7.0', '>= 7.0.7.2'
 
-gem 'kaminari', '~> 0.17.0'
+gem 'kaminari', '~> 0.17.0' 
+
+gem "image_processing", ">= 1.2"
+
 
 # Use Sass to process CSS
 # gem "sassc-rails"

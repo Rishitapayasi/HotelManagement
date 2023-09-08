@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      UserMailer.with(user: @user).welcome_email.deliver_later
+      UserMailer.with(user: @user).welcome_email.deliver
       render json: @user, serializer: UserSerializer
     else
       render json: @user.errors.full_messages, status: :unprocessable_entity
@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     if @current_user.update(user_params)
       render json: { message: 'User updated', data: @current_user }
     else
-      render json: { errors: @current_user.errors.full_messages }
+      error_msg
     end
   end
 
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     if @current_user.destroy
       render json: { message: 'User deleted' }
     else
-      render json: { errors: @current_user.errors.full_messages }
+      error_msg
     end
   end
 
@@ -48,5 +48,9 @@ class UsersController < ApplicationController
   private
   def user_params
     params.permit(:full_name, :email, :password, :type)
+  end 
+
+  def error_msg 
+    render json: { errors: @current_user.errors.full_messages }
   end
 end
