@@ -8,12 +8,7 @@ Rails.application.routes.draw do
   # delete 'users', to: 'users#destroy'
   resources :hotels
   post '/room/create', to: 'rooms#create'
- 
-  
-  resource :owner
   get '/user_hotel', to: 'owners#user_hotel'
   
   get '/index', to: 'customers#index'
-   
-  
 end

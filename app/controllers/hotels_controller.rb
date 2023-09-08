@@ -45,10 +45,10 @@ class HotelsController < ApplicationController
 		if @hotel
 			@hotel.destroy
 			render json: { message: "Hotel Deleted !!!" }, status: :ok
+    else
+      render json: { errors: @hotel.errors.full_messages }
     end
-    rescue ActiveRecord::RecordNotFound => error
-      render json: { error: error.message }, status: :not_found
-	
+    
 	end
 
   private

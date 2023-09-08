@@ -6,7 +6,8 @@ class CustomersController < ApplicationController
       hotels = Hotel.where(status: 'open')
       render json: hotels
     else
-      redirect_to '/hotels'
+      render json: Hotel.all
     end
   end 
-end
+end 
+

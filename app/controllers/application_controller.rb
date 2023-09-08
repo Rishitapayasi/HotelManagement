@@ -3,7 +3,9 @@ class ApplicationController < ActionController::API
   before_action :authenticate_request
   before_action :check_owner
   before_action :check_customer
-  
+  before_action do
+    ActiveStorage::Current.host = request.base_url
+  end
 
   def authenticate_request
 		begin
