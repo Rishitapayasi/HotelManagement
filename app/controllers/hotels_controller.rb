@@ -1,6 +1,6 @@
 class HotelsController < ApplicationController
   skip_before_action :check_customer
-  skip_before_action :check_owner
+  skip_before_action :check_owner, only: [:index]
   before_action :set_params, only: [:show, :destroy]
    
   def index 
@@ -12,7 +12,7 @@ class HotelsController < ApplicationController
       hotels = Hotel.where('name LIKE ?', "%#{ params[:name]}%")
     end 
 
-    render json: hotels.page(params[:page]).per(params[:per_page]) 
+    render json: hotels.page(params[:page]).per(3) 
   end
 
   def show
@@ -54,7 +54,7 @@ class HotelsController < ApplicationController
   private
 
   def hotel_params
-    params.permit(:name, :location, :status, images: [])
+    params.require(:hotel).permit(:name, :location, :status, images: [])
   end
 
   def set_params
