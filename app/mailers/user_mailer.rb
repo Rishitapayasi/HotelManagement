@@ -9,7 +9,6 @@ class UserMailer < ApplicationMailer
 
   def forget_password_email 
     @user = params[:user] 
-    @otp = params[:otp]
     mail(to: @user.email, subject: 'forget password')
   end  
 end

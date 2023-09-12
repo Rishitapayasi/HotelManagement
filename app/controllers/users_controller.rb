@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
-  include JsonWebToken
-  skip_before_action :authenticate_request, only: [:index, :create, :login]
+  skip_before_action :authenticate_request, only: [:index, :create, :login, :reset_password]
   skip_before_action :check_owner
   skip_before_action :check_customer
   
@@ -45,37 +44,9 @@ class UsersController < ApplicationController
     end
   end 
 
-  def forget_password_email
-   @user = User.find_by_email(params[:email])
-    if @user 
-      @otp = rand.to_s[2..7] 
-      @user.otp = @otp
-      @user.save
-      UserMailer.with(user: @user, otp: @otp).forget_password_email.deliver 
-      # debugger
-    else 
-      render json: {message: "no user found with"}, status: :not_found
-    end 
-  end 
-
-  def reset_password 
-    @user = User.find_by_email(params[:email])
-    otp = params[:otp]
-    password = params[:password]
-    password_confirmation = params[:password_confirmation]
-    if otp == @user.otp && password == password_confirmation 
-      debugger
-      @user.password_digest = paasword 
-      @user.save 
-      render json: {message: "you have succefully reset your password"}, status: :ok 
-    else 
-      render json: {message: "no user found with #{params[:email]}"}, status: :not_found 
-    end
-  end
-
   private
   def user_params
-    params.permit(:full_name, :email, :password, :type)
+    params.require(:user).permit(:full_name, :email, :password, :password_confirmation, :type)
   end 
 
   def error_msg 

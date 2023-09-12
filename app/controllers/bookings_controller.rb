@@ -2,24 +2,23 @@ class BookingsController < ApplicationController
   skip_before_action :check_owner
   before_action :set_bookings, only: [:show, :destroy]
 
-	def create
-		@booking = @current_user.bookings.new(booking_params)
+  def create
+	  @booking = @current_user.bookings.new(booking_params)
     if @booking.save
       render json: @booking, serializer: BookingSerializer
 		else
       render json: { error: @booking.errors.full_messages }, status: :unprocessable_entity
-			return
-		end		
+		end
 	end
 	
   def index
 		bookings = Booking.all
 
-		render json: bookings, status: :ok
+		render json: bookings, serializer: BookingSerializer
  	end
 
   def show
-		return render json: @booking, status: :ok 
+    render json: @booking, status: :ok 
 	end
 
 	def destroy
@@ -40,4 +39,5 @@ class BookingsController < ApplicationController
 			render json: { message: 'Booking not found' }, status: :not_found
 		end
 	end
+
 end
