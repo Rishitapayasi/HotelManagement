@@ -3,41 +3,42 @@ class BookingsController < ApplicationController
   before_action :set_bookings, only: [:show, :destroy]
 
   def create
-	  @booking = @current_user.bookings.new(booking_params)
+    @booking = @current_user.bookings.new(booking_params)
     if @booking.save
       render json: @booking, serializer: BookingSerializer
-		else
+    else
       render json: { error: @booking.errors.full_messages }, status: :unprocessable_entity
-		end
-	end
-	
-  def index
-		bookings = Booking.all
+    end
+  end
 
-		render json: bookings, serializer: BookingSerializer
- 	end
+  def index
+    bookings = Booking.all
+
+    render json: bookings, serializer: BookingSerializer
+  end
 
   def show
     render json: @booking, status: :ok 
-	end
+  end
 
-	def destroy
-		if @booking
-			booking = @booking.destroy
-			render json: { message: "Booking deleted" }, status: :ok	
-		end
-	end
+  def destroy
+    if @booking
+      booking = @booking.destroy
+      render json: { message: "Booking deleted" }, status: :ok 
+    else 
+      render json: @booking.errors.full_messages
+    end
+  end
 
-	private
-	def booking_params
-		params.permit(:name, :check_in_date, :check_out_date, :hotel_id, :room_id)
-	end
+  private
+  def booking_params
+    params.permit(:name, :check_in_date, :check_out_date, :hotel_id, :room_id)
+  end
 
   def set_bookings
-		@booking = Booking.find_by(id: params[:id])
-		unless @booking
-			render json: { message: 'Booking not found' }, status: :not_found
-		end
-	end
-
+    @booking = Booking.find_by(id: params[:id])
+    unless @booking
+      render json: { message: 'Booking not found' }, status: :not_found
+    end
+  end
 end
