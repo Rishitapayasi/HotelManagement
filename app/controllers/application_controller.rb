@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::API
   include JsonWebToken
   before_action :authenticate_request
-  before_action :check_owner
-  before_action :check_customer
+  # before_action :check_owner
+  # before_action :check_customer
   before_action do
     ActiveStorage::Current.host = request.base_url
   end
@@ -18,11 +18,11 @@ class ApplicationController < ActionController::API
 		end  
   end 
 
-  def check_owner
-    render json: { message: 'You are not owner' } unless @current_user.type == 'Owner'
-  end
+  # def check_owner
+  #   render json: { message: 'You are not owner' } unless @current_user.type == 'Owner'
+  # end
 
-  def check_customer
-    render json: { message: 'You are not customer' } unless @current_user.type == 'Customer'
-  end
+  # def check_customer
+  #   render json: { message: 'You are not customer' } unless @current_user.type == 'Customer'
+  # end
 end

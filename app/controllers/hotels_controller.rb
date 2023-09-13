@@ -1,8 +1,9 @@
 class HotelsController < ApplicationController
-  skip_before_action :check_customer
-  skip_before_action :check_owner, only: [:index]
-  before_action :set_params, only: [:show, :update, :destroy]
-   
+  # skip_before_action :check_customer
+  # skip_before_action :check_owner, only: [:index]
+  # before_action :set_params, only: [:show, :update, :destroy]
+  load_and_authorize_resource
+  
   def index 
     hotels = Hotel.all
 
@@ -16,13 +17,13 @@ class HotelsController < ApplicationController
   end
 
   def show
-    hotel = @current_user.hotels
+    
     render json: hotel, serializer: HotelSerializer
   end
 
   def create
-    hotel = @current_user.hotels.new(hotel_params)
-
+    # hotel = @current_user.hotels.new(hotel_params)
+  
     if hotel.save
       render json: hotel, serializer: HotelSerializer 
     else
@@ -53,8 +54,8 @@ class HotelsController < ApplicationController
     params.require(:hotel).permit(:name, :location, :status, images: [])
   end
 
-  def set_params
-    @hotel = @current_user.hotels.find(params[:id])
-  end
+  # def set_params
+  #   @hotel = @current_user.hotels.find(params[:id])
+  # end
 end 
 

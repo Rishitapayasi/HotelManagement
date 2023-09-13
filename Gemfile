@@ -53,7 +53,7 @@ gem 'kaminari', '~> 0.17.0'
 
 gem "image_processing", ">= 1.2"
 
-
+gem 'cancancan'
 # Use Sass to process CSS
 # gem "sassc-rails"
 
