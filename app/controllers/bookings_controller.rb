@@ -1,7 +1,7 @@
 class BookingsController < ApplicationController
-  skip_before_action :check_owner
-  before_action :set_bookings, only: [:show, :destroy]
-
+  before_action :set_bookings, only: [:destroy]
+  load_and_authorize_resource
+  
   def create
     @booking = @current_user.bookings.new(booking_params)
     if @booking.save
@@ -13,20 +13,18 @@ class BookingsController < ApplicationController
 
   def index
     bookings = Booking.all
-
-    render json: bookings, serializer: BookingSerializer
+    
+    render json: bookings
   end
 
-  def show
-    render json: @booking, status: :ok 
+  def my_booking
+    render json: @current_user.bookings
   end
 
   def destroy
     if @booking
       booking = @booking.destroy
       render json: { message: "Booking deleted" }, status: :ok 
-    else 
-      render json: @booking.errors.full_messages
     end
   end
 
@@ -37,8 +35,5 @@ class BookingsController < ApplicationController
 
   def set_bookings
     @booking = Booking.find_by(id: params[:id])
-    unless @booking
-      render json: { message: 'Booking not found' }, status: :not_found
-    end
   end
 end

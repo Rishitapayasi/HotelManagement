@@ -1,12 +1,12 @@
 class ApplicationController < ActionController::API
   include JsonWebToken
   before_action :authenticate_request
-  # before_action :check_owner
-  # before_action :check_customer
   before_action do
-    ActiveStorage::Current.host = request.base_url
+    ActiveStorage::Current.url_options = { protocol: request.protocol, host: request.host, port: request.port }
   end
 
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
+ 
   def authenticate_request
 		begin
 			header = request.headers[ 'Authorization' ]
@@ -17,12 +17,9 @@ class ApplicationController < ActionController::API
 			render json: { error: 'Invalid token' }, status: :unprocessable_entity
 		end  
   end 
+  attr_reader :current_user
 
-  # def check_owner
-  #   render json: { message: 'You are not owner' } unless @current_user.type == 'Owner'
-  # end
-
-  # def check_customer
-  #   render json: { message: 'You are not customer' } unless @current_user.type == 'Customer'
-  # end
+  def not_found
+    render json: {error: 'Record not found'}, status:404
+  end
 end

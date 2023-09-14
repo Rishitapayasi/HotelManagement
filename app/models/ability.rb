@@ -2,10 +2,14 @@
 
 class Ability
   include CanCan::Ability
-
+  
   def initialize(user)
-    if user.is_a?(Owner)
-      can [:read, :create, :update, :destroy], Hotels, user_id: user_id 
-    end
+    return unless user.present?
+    can :read, Hotel, user: user.customer?
+    can :manage, Booking
+    
+    return unless user.type == 'Owner'
+    can :manage, Hotel
+    can :create, Room
   end
 end

@@ -1,7 +1,5 @@
 class CustomersController < ApplicationController
-  skip_before_action :check_owner
-
-  def index 
+  def available_hotel 
     if params[:status]
       hotels = Hotel.where(status: 'open')
       render json: hotels

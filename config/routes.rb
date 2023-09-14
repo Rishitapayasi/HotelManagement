@@ -8,9 +8,9 @@ Rails.application.routes.draw do
   # delete 'users', to: 'users#destroy'
   resources :hotels
   post '/room/create', to: 'rooms#create'
-  get '/user_hotel', to: 'owners#user_hotel'
-  get '/index', to: 'customers#index'
-   
+  get '/my_hotel', to: 'owners#my_hotel'
+  get '/available_hotel', to: 'customers#available_hotel'
+  get '/my_booking', to: 'bookings#my_booking'
  
   post '/forget_password', to: 'passwords#forget_password_email'
   post '/reset_password', to: 'passwords#reset_password'
