@@ -8,5 +8,12 @@ class Hotel < ApplicationRecord
 
   enum :status, [:open, :closed]
   validates :name, :location, presence: true
- 
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["created_at", "id", "location", "name", "status", "updated_at", "user_id"]
+  end
+  
+  def self.ransackable_associations(auth_object = nil)
+    ["bookings", "images_attachments", "images_blobs", "rooms", "user"]
+  end
 end

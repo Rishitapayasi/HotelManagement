@@ -14,4 +14,6 @@ class Booking < ApplicationRecord
       errors.add(:base, "this room is already booked!!")
     end
   end
+
+  
 end

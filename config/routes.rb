@@ -2,10 +2,11 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-
+  
   
   resources :bookings
   resource :users
+  get '/index', to: 'users#index'
   post 'user/login', to: 'users#login'
   # patch 'users', to: 'users#update'
   # put 'users', to: 'users#update'

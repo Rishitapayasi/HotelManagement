@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
 	# 		render json: { error: 'Invalid token' }, status: :unprocessable_entity
 	# 	end  
   # end 
-  # attr_reader :current_user
+  attr_reader :current_user
 
   def not_found
     render json: {error: 'Record not found'}, status:404

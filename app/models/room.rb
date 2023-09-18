@@ -5,4 +5,9 @@ class Room < ApplicationRecord
   
   validates :room_no, presence: true, numericality: { greater_then: 0 }, uniqueness: { scope: :hotel_id }
   validates :room_price, presence: true, numericality: { greater_then: 0 }
+
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["created_at", "hotel_id", "id", "room_no", "room_price", "updated_at", "user_id"]
+  end
 end
