@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+
+
   
   resources :bookings
   resource :users
@@ -9,9 +13,9 @@ Rails.application.routes.draw do
   resources :hotels
   post '/room/create', to: 'rooms#create'
   get '/my_hotel', to: 'owners#my_hotel'
-  get '/available_hotel', to: 'customers#available_hotel'
+  get '/available_hotels', to: 'customers#available_hotels'
   get '/my_booking', to: 'bookings#my_booking'
- 
+  get '/my_hotel',to: 'hotels#my_hotels'
   post '/forget_password', to: 'passwords#forget_password_email'
   post '/reset_password', to: 'passwords#reset_password'
   post '/verify_otp', to: 'passwords#verify_otp'

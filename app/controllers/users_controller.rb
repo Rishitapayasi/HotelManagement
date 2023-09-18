@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   skip_before_action :authenticate_request, only: [:index, :create, :login, :reset_password]
-
   
   def show
     render json: @current_user
