@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
   # skip_before_action :authenticate_request, only: [:index, :create, :login, :reset_password]
-  
+  before_action :authenticate_user!
   def index 
     @user = User.all
+    redirect_to @user
   end
-
 
   def show
     render json:  @user = User.all
@@ -36,16 +36,16 @@ class UsersController < ApplicationController
     end
   end
 
-  def login
-    @user = User.find_by_email(params[:email])
-    # debugger
-    if @user&.authenticate(params[:password])
-      token = jwt_encode(user_id: @user.id)
-      render json: { message: "Logged In Successfully!!", token: token }
-    else
-      render json: { error: "Please Check your Email And Password"}  
-    end
-  end 
+  # def login
+  #   @user = User.find_by_email(params[:email])
+  #   # debugger
+  #   if @user&.authenticate(params[:password])
+  #     token = jwt_encode(user_id: @user.id)
+  #     render json: { message: "Logged In Successfully!!", token: token }
+  #   else
+  #     render json: { error: "Please Check your Email And Password"}  
+  #   end
+  # end 
 
   private
   def user_params

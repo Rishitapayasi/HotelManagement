@@ -15,5 +15,7 @@ class Booking < ApplicationRecord
     end
   end
 
-  
+  def self.ransackable_attributes(auth_object = nil)
+    ["check_in_date", "check_out_date", "created_at", "hotel_id", "id", "name", "room_id", "updated_at", "user_id"]
+  end 
 end

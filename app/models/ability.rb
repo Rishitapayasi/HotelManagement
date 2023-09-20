@@ -5,6 +5,7 @@ class Ability
 
   def initialize(user)
     return unless user.present? 
+    can :read, Hotel
     return unless user.type == 'Customer'
     can :read, Hotel
     can :manage, Booking

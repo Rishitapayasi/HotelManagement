@@ -1,18 +1,19 @@
 class HotelsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_params, only: [:update, :destroy,]
   before_action :verify_owner, except: [:index, :create]
   load_and_authorize_resource
 
   def index 
-    hotels = Hotel.all
+    @hotels = Hotel.all
 
     if params[:location]
-      hotels = hotels.where('location LIKE  ?', "%#{params[:location]}%")
+      @hotels = hotels.where('location LIKE  ?', "%#{params[:location]}%")
     elsif params[:name]
-      hotels = hotels.where('name LIKE ?', "%#{ params[:name]}%")
+      @hotels = hotels.where('name LIKE ?', "%#{ params[:name]}%")
     end 
 
-    render json: hotels.page(params[:page])
+    redirect_to @hotels
   end
 
   def my_hotels

@@ -12,4 +12,4 @@ class HotelSerializer < ActiveModel::Serializer
       data.url
     end
   end
-end
+end 
