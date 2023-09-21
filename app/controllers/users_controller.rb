@@ -1,9 +1,14 @@
 class UsersController < ApplicationController
   # skip_before_action :authenticate_request, only: [:index, :create, :login, :reset_password]
   before_action :authenticate_user!
-  def index 
+  def index
+    debugger
     @user = User.all
     redirect_to @user
+  end 
+
+  def new  
+    redirect '\hotels'
   end
 
   def show
@@ -14,7 +19,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       UserMailer.with(user: @user).welcome_email.deliver
-      render json: @user, serializer: UserSerializer
+      # render json: @user, serializer: UserSerializer
+      redirect_to '\hotels'
     else
       render json: @user.errors.full_messages, status: :unprocessable_entity
     end

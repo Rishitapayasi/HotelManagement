@@ -1,11 +1,7 @@
 <h1>Hotels</h1>
 
 <ul>
-  <% @hotel.each do |hotel| %>
-    <li>
-      <a href="<%= hotel_path(hotels) %>">
-        <%= hotel.name %>
-      </a>
-    </li>
+  <% Hotel.all.each do |hotel| %>
+    <%= hotel.name %>
   <% end %>
 </ul> 

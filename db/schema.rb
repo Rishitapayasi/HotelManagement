@@ -95,18 +95,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_20_112750) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "hotel_id", null: false
-    t.integer "user_id", null: false
     t.index ["hotel_id"], name: "index_rooms_on_hotel_id"
-    t.index ["user_id"], name: "index_rooms_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "full_name"
     t.string "email"
+    t.string "password"
     t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "password_digest"
     t.integer "otp"
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -116,7 +114,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_20_112750) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "bookings", "hotels"
+  add_foreign_key "bookings", "rooms"
+  add_foreign_key "bookings", "users"
   add_foreign_key "hotels", "users"
   add_foreign_key "rooms", "hotels"
-  add_foreign_key "rooms", "users"
 end

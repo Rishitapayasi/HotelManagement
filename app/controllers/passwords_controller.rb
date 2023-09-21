@@ -5,11 +5,11 @@ class PasswordsController < ApplicationController
   def forget_password_email
     if @user 
       new_otp = @user.update(otp: rand.to_s[2..7] )
-        if new_otp 
-          UserMailer.with(user: @user).forget_password_email.deliver 
-        else 
-          rendor json: {message: "something went wrong"}
-        end 
+      if new_otp 
+        UserMailer.with(user: @user).forget_password_email.deliver 
+      else 
+        rendor json: {message: "something went wrong"}
+      end 
     end 
   end 
 
@@ -38,7 +38,9 @@ class PasswordsController < ApplicationController
       render json: {message: "password should match"}
     end
   end
-  private 
+
+  private
+
   def find_user 
     @user = User.find_by_email(params[:email])
   end

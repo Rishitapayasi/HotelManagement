@@ -12,8 +12,6 @@ class HotelsController < ApplicationController
     elsif params[:name]
       @hotels = hotels.where('name LIKE ?', "%#{ params[:name]}%")
     end 
-
-    redirect_to @hotels
   end
 
   def my_hotels
