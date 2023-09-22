@@ -1,20 +1,14 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: {
-    sessions: 'users/sessions'
-  }
-  # devise_for :admin_users, ActiveAdmin::Devise.config
-  # ActiveAdmin.routes(self) 
+  # devise_for :users
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self) 
 
+  devise_for :users
 
-
-
-  root 'hotels#index'
-
-  
   resources :bookings
-  resource :users
-  get '/index', to: 'users#index'
-  post 'user/login', to: 'users#login'
+  resources:users
+  # get '/index', to: 'users#index'
+  # post 'user/login', to: 'users#login'
   # patch 'users', to: 'users#update'
   # put 'users', to: 'users#update'
   # delete 'users', to: 'users#destroy'

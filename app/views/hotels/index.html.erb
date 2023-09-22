@@ -1,7 +1,28 @@
 <h1>Hotels</h1>
 
-<ul>
-  <% Hotel.all.each do |hotel| %>
-    <%= hotel.name %>
-  <% end %>
-</ul> 
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Location</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @hotels.each do |hotel| %>
+      <tr>
+        <td><%= hotel.name %></td>
+        <td><%= hotel.location %></td>
+        <td><%= link_to "Show", hotel %></td>
+        <td><%= link_to "Edit", edit_hotel_path(hotel) %></td>
+       
+      </tr>
+    <% end %>
+   
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to "New hotel", new_hotel_path %>

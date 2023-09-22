@@ -1,5 +1,5 @@
 class HotelsController < ApplicationController
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   before_action :set_params, only: [:update, :destroy,]
   before_action :verify_owner, except: [:index, :create]
   load_and_authorize_resource
@@ -30,7 +30,7 @@ class HotelsController < ApplicationController
 
   def update
     if @hotel.update(update_hotel)
-      render json: { message: 'hotel updated' }
+      redirect_to(@hotel)
     else
       render json: { errors: @hotel.errors.full_messages }
     end

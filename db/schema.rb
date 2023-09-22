@@ -100,12 +100,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_20_112750) do
 
   create_table "users", force: :cascade do |t|
     t.string "full_name"
-    t.string "email"
-    t.string "password"
     t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "otp"
+    t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
