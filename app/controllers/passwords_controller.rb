@@ -1,5 +1,4 @@
 class PasswordsController < ApplicationController 
-  skip_before_action :authenticate_request, except: [:reset_password] 
   before_action :find_user
 
   def forget_password_email

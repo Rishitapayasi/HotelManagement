@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
-  # devise_for :users
+  
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self) 
 
   devise_for :users
 
-  resources :bookings
-  resources:users
+  root to: "hotels#index"
+  resources :bookings 
+  # resources:users
   # get '/index', to: 'users#index'
   # post 'user/login', to: 'users#login'
   # patch 'users', to: 'users#update'

@@ -1,9 +1,10 @@
-class HotelsController < ApplicationController
-  # before_action :authenticate_user!
+class HotelsController < ApplicationController 
+  
+  before_action :authenticate_user!
   before_action :set_params, only: [:update, :destroy,]
-  before_action :verify_owner, except: [:index, :create]
-  load_and_authorize_resource
-
+  # before_action :verify_owner, except: [:index, :create]
+  # load_and_authorize_resource
+  
   def index 
     @hotels = Hotel.all
 
@@ -18,6 +19,10 @@ class HotelsController < ApplicationController
     render json: @current_user.hotels, serializer: HotelSerializer
   end
 
+  def new 
+    render
+  end
+  
   def create
     hotel = @current_user.hotels.new(hotel_params)
 
@@ -57,8 +62,8 @@ class HotelsController < ApplicationController
     params.permit(:name, :location, :status)
   end
 
-  def verify_owner 
-    @current_user == Hotel.user
-  end
+  # def verify_owner 
+  #   @current_user == Hotel.user
+  # end
 end 
 

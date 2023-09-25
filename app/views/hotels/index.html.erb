@@ -1,3 +1,10 @@
+<% if user_signed_in? %> 
+ <div> Welcome <%= current_user.email %> </div> 
+  <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
+<% else %>
+  <%= button_to "Sign in", new_user_session_path %> 
+<% end %>
+
 <h1>Hotels</h1>
 
 <table>
@@ -25,4 +32,5 @@
 
 <br>
 
-<%= link_to "New hotel", new_hotel_path %>
+# <%= link_to "New hotel", new_hotel_path %>
+<%= link_to "New hotel", new_hotel_path if can? :create, @hotels %>

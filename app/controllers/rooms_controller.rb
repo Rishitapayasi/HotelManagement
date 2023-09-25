@@ -14,9 +14,6 @@ class RoomsController < ApplicationController
     params.permit(:room_no, :room_price, :hotel_id)
   end 
 
-  def verify_hotel_owner 
-    @current_user.hotels == @current_user.id 
-  end
 end
 
 

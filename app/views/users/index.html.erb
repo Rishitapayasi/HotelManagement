@@ -1,11 +1,1 @@
-<h1>Users</h1>
 
-<ul>
-  <% @user.each do |user| %>
-    <li>
-      <a href="<%= user_path(user) %>">
-        <%= user.full_name %>
-      </a>
-    </li>
-  <% end %>
-</ul>
