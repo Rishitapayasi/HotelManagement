@@ -4,7 +4,7 @@ class Hotel < ApplicationRecord
   has_many :bookings
   has_many_attached :images, dependent: :destroy
   
-  enum :status, [:open, :closed]
+  enum :status, [:open, :close]
   validates :name, :location, presence: true
 
   def self.ransackable_attributes(auth_object = nil)

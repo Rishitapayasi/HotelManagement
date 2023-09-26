@@ -1,10 +1,6 @@
 class HotelsController < ApplicationController 
   
-  before_action :authenticate_user!
-  before_action :set_params, only: [:update, :destroy,]
-  # before_action :verify_owner, except: [:index, :create]
-  # load_and_authorize_resource
-  
+  before_action :set_params, only: [:update, :destroy, :edit]
   def index 
     @hotels = Hotel.all
 
@@ -15,36 +11,48 @@ class HotelsController < ApplicationController
     end 
   end
 
-  def my_hotels
-    render json: @current_user.hotels, serializer: HotelSerializer
+  def show
+    if current_user.type == 'Owner'
+      @hotels = current_user.hotels.find(params[:id]) 
+    else
+      @hotels = Hotel.find(params[:id])
+    end
   end
 
   def new 
+    @hotels = current_user.hotels.new
     render
   end
   
   def create
-    hotel = @current_user.hotels.new(hotel_params)
+    hotel = current_user.hotels.new(hotel_params)
 
     if hotel.save
-      render json: hotel, serializer: HotelSerializer 
+      redirect_to root_path    
     else
       render json: { error: hotel.errors.full_messages }, status: :unprocessable_entity
     end
+  end 
+
+  def edit 
   end
 
   def update
-    if @hotel.update(update_hotel)
-      redirect_to(@hotel)
-    else
-      render json: { errors: @hotel.errors.full_messages }
+    respond_to do |format|
+      if @hotels.update(update_hotel)
+        # debugger
+        format.html { redirect_to root_url, notice: "hotel was successfully updated." }
+        format.json { render :show, status: :ok, location: @hotels }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @hotels.errors, status: :unprocessable_entity }
+      end
     end
-  end 
+  end
 
   def destroy
-    if @hotel
-      @hotel.destroy
-      render json: { message: "Hotel Deleted !!!" }, status: :ok
+    if @hotels.destroy
+      redirect_to root_path    
     end
   end
 
@@ -55,15 +63,13 @@ class HotelsController < ApplicationController
   end
 
   def set_params
-    @hotel = @current_user.hotels.find(params[:id])
+    @hotels = @current_user.hotels.find(params[:id])
   end 
 
   def update_hotel
-    params.permit(:name, :location, :status)
+    params.require(:hotel).permit(:name, :location, :status)
   end
 
-  # def verify_owner 
-  #   @current_user == Hotel.user
-  # end
+
 end 
 

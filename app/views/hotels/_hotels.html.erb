@@ -1,0 +1,35 @@
+<div id="<%= dom_id hotels %>">
+
+
+  <p>
+    <strong>Name:</strong>
+    <%= hotels.name %>
+  </p>
+
+  <p>
+    <strong>Location:</strong>
+    <%= hotels.location %>
+  </p>
+
+  <p>
+    <strong>Status:</strong>
+    <%= hotels.status %>
+  </p>
+
+  <p>
+  <u>
+  <h3>Available Rooms</h3>
+  </u>
+    <% hotels.rooms.each do |room|%>
+      <strong>room_no.</strong>
+      <%= room.room_no %>
+      <strong>room_price.</strong>
+      <%= room.room_price %>
+    <% end %>
+    <%if current_user.type == 'Customer'%>
+    <%= link_to "Book Room", new_booking_path %>
+    <%end%>
+  </p>
+
+
+</div>

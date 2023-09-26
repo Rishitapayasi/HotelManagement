@@ -1,0 +1,12 @@
+
+<%= render partial: 'hotels', locals: {hotels: @hotels}  %>
+
+<div>
+
+  <%= link_to "Back to hotels", hotels_path %> 
+
+  <%if current_user.type == 'Owner'%>
+    <%= link_to "Edit this hotel", edit_hotel_path(@hotels) %> 
+    <%= button_to "Destroy this hotel", @hotels, method: :delete %>
+  <%end%>
+</div> 

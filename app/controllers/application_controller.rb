@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::Base
+
+  before_action :authenticate_user!
+  before_action :current_user , except: [:sign_in,:sign_out]
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   include ActionView::Layouts
@@ -23,5 +26,7 @@ class ApplicationController < ActionController::Base
 
   def AccessDenied 
     render json: {error: "you are not authorised to perform this action"}
-  end
+  end 
+
+ 
 end

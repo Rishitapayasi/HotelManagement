@@ -1,11 +1,11 @@
 class BookingsController < ApplicationController
   before_action :set_bookings, only: [:destroy]
-  load_and_authorize_resource
+ 
   
   def create
     @booking = @current_user.bookings.new(booking_params)
     if @booking.save
-      render json: @booking, serializer: BookingSerializer
+     redirect_to '/hotels'
     else
       render json: { error: @booking.errors.full_messages }, status: :unprocessable_entity
     end
@@ -17,7 +17,7 @@ class BookingsController < ApplicationController
     render json: bookings
   end
 
-  def my_booking
+  def show
     render json: @current_user.bookings
   end
 

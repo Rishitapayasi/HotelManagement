@@ -1,9 +1,9 @@
-<%= form_with model: @hotels do |form| %>
-    <%= form.text_field :name %>
-    <%= form.text_area :body %>
-    <%= form.text_field :location %>
-    <%= form.text_area :body %>
-    <%= form.submit %>
-  <% end %> 
+<h1>New hotel</h1>
 
-  
+<%= render "form", hotels: @hotels%>
+
+<br>
+
+<div>
+  <%= link_to "Back to hotels", hotels_path %>
+</div>

@@ -5,32 +5,90 @@
   <%= button_to "Sign in", new_user_session_path %> 
 <% end %>
 
-<h1>Hotels</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Location</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @hotels.each do |hotel| %>
-      <tr>
-        <td><%= hotel.name %></td>
-        <td><%= hotel.location %></td>
-        <td><%= link_to "Show", hotel %></td>
-        <td><%= link_to "Edit", edit_hotel_path(hotel) %></td>
-       
-      </tr>
-    <% end %>
-   
-  </tbody>
-</table>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotels</title>
+  <style>
+    body {
+      font-family: Tahoma, sans-serif;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      color: #007BFF;
+      text-align: center;
+      padding-top: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border: 1px solid #ccc;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .hotel-card {
+      display: flex;
+      margin-bottom: 20px;
+    }
+    .hotel-details {
+      flex: 1;
+      padding: 20px;
+    }
+    .hotel-name {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+ 
+    .image {
+      width: 200px;
+      height: 300px;
+      margin-right: 20px;
+      border: 1px solid #ddd;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+    .actions {
+      margin-top: 10px;
+    }
+    .actions a {
+      text-decoration: none;
+      color: #007BFF;
+      margin-right: 10px;
+    }
+  </style>
+</head>
 
-<br>
+  <body>
+    <h1>Hotels</h1>
+    <div class="container">
+      <% @hotels.each do |hotel| %>
+        <div class="hotel-card">
+          <div class="hotel-details">
+            <div class="hotel-name"><%= hotel.name %></div>
+            <div class="hotel-location"><%= hotel.location %></div>
+            <div class="hotel-status"><%= hotel.status %></div>
+            <div class="actions">
+              <%= link_to 'Show', hotel %> 
+            </div>
+          </div>
+        </div>
+      <%end%>
+    </div>
 
-# <%= link_to "New hotel", new_hotel_path %>
-<%= link_to "New hotel", new_hotel_path if can? :create, @hotels %>
+    <div>
+      <%if current_user.type == 'Owner'%>
+        <%= link_to "New hotel", new_hotel_path %>
+      <% end%>
+    </div>
+
+  </body>
+</html>
