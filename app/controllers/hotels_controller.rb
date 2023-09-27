@@ -1,5 +1,4 @@
 class HotelsController < ApplicationController 
-  
   before_action :set_params, only: [:update, :destroy, :edit]
   def index 
     @hotels = Hotel.all
@@ -69,7 +68,5 @@ class HotelsController < ApplicationController
   def update_hotel
     params.require(:hotel).permit(:name, :location, :status)
   end
-
-
 end 
 

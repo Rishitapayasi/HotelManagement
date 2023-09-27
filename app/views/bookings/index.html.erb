@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotels</title>
+</head>
+	<body>
+	<h1>Bookings</h1>
+	<div class="container">
+		<% current_user.bookings.each do |booking| %>
+			<strong>name</strong>
+			<%= booking.name%>
+            <br>
+			<strong>check_in_date</strong>
+			<%= booking.check_in_date %>
+            <br>
+			<strong>check_out_date</strong>
+			<%= booking.check_out_date %>
+			<br>
+			<li><%= link_to "Destroy", booking_path(booking), data: {
+				turbo_method: :delete,
+				turbo_confirm: "Are you sure?"
+			  } %></li>
+			<%= link_to "Edit booking", edit_booking_path(booking) %> 
+
+		<%end%>
+	</div>
+
+	</body>
+</html>

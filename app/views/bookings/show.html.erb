@@ -1,0 +1,12 @@
+
+<%= render partial: 'booking', locals: {booking: @booking}  %>
+
+<div>
+
+  <%= link_to "Back to hotels", hotels_path %> 
+
+  <%if current_user.type == 'customer'%>
+    <%= link_to "Edit booking", edit_booking_path(@booking) %> 
+    <%= button_to "Destroy this booking", @booking, method: :delete %>
+  <%end%>
+</div>  

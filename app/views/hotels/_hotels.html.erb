@@ -25,10 +25,12 @@
       <%= room.room_no %>
       <strong>room_price.</strong>
       <%= room.room_price %>
+    
+      <%if current_user.type == 'Customer'%>
+     
+      <%= link_to "Book Room", new_booking_path(:room_id => room.id, :hotel_id => hotels.id)%>
+      <%end%>
     <% end %>
-    <%if current_user.type == 'Customer'%>
-    <%= link_to "Book Room", new_booking_path %>
-    <%end%>
   </p>
 
 

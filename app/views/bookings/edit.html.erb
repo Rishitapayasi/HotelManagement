@@ -1,0 +1,25 @@
+
+	<h1> Edit Bookings</h1>
+	
+	<%= form_with(model: @booking) do |form| %>
+		<div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name%>
+    </div>
+  
+    <div>
+      <%= form.label :check_in_date, style: "display: block" %>
+      <%= form.date_field :check_in_date%>
+    </div>
+    
+    <div>
+      <%= form.label :check_out_date, style: "display: block" %>
+      <%= form.date_field:check_out_date%>
+    </div>
+
+    <div>
+      <%= form.submit %>
+    </div>
+	<%end%>
+      
+  

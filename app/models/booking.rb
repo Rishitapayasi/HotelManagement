@@ -7,7 +7,7 @@ class Booking < ApplicationRecord
   validate :unique_room_booking
 
   private
-
+  
   def unique_room_booking 
     existing_booking = Booking.find_by(room: room_id, check_in_date: check_in_date, hotel_id: hotel_id ) 
     if existing_booking.present?
