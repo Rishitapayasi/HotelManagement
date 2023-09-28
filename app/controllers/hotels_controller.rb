@@ -20,13 +20,14 @@ class HotelsController < ApplicationController
 
   def new 
     @hotels = current_user.hotels.new
-    render
+   
   end
   
   def create
     hotel = current_user.hotels.new(hotel_params)
-
+     
     if hotel.save
+      
       redirect_to root_path    
     else
       render json: { error: hotel.errors.full_messages }, status: :unprocessable_entity
@@ -38,7 +39,7 @@ class HotelsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @hotels.update(update_hotel)
+      if @hotels.update(hotel_params)
         # debugger
         format.html { redirect_to root_url, notice: "hotel was successfully updated." }
         format.json { render :show, status: :ok, location: @hotels }
@@ -64,9 +65,5 @@ class HotelsController < ApplicationController
   def set_params
     @hotels = @current_user.hotels.find(params[:id])
   end 
-
-  def update_hotel
-    params.require(:hotel).permit(:name, :location, :status)
-  end
 end 
 

@@ -1,6 +1,4 @@
 <div id="<%= dom_id hotels %>">
-
-
   <p>
     <strong>Name:</strong>
     <%= hotels.name %>
@@ -17,21 +15,26 @@
   </p>
 
   <p>
+    <% if hotels.images.attached? %>
+      <% hotels.images.each do |image|%>
+        <image src="<%=(url_for(image))%>">
+      <% end %>
+    <%end%>  
+  </p>
+
+  <p>
   <u>
   <h3>Available Rooms</h3>
   </u>
-    <% hotels.rooms.each do |room|%>
+  <% hotels.rooms.each do |room|%>
       <strong>room_no.</strong>
       <%= room.room_no %>
       <strong>room_price.</strong>
       <%= room.room_price %>
     
       <%if current_user.type == 'Customer'%>
-     
-      <%= link_to "Book Room", new_booking_path(:room_id => room.id, :hotel_id => hotels.id)%>
+        <%= link_to "Book Room", new_booking_path(:room_id => room.id, :hotel_id => hotels.id)%>
       <%end%>
-    <% end %>
+  <% end %>
   </p>
-
-
 </div>

@@ -24,8 +24,14 @@
     <div>
       <%= form.select :status, ['open','close' ] %>
     </div>
-  
+    
+    <div>
+      <%=form.label :images%>
+      <%=form.file_field :images, multiple: true, direct_upload: 'false'%>
+    </div>
+   
     <div>
       <%= form.submit %>
     </div>
+  
   <% end %>
