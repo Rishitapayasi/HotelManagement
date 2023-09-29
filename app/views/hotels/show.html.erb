@@ -8,5 +8,6 @@
   <%if current_user.type == 'Owner'%>
     <%= link_to "Edit this hotel", edit_hotel_path(@hotels) %> 
     <%= button_to "Destroy this hotel", @hotels, method: :delete %>
-  <%end%>
+    <%= link_to "Add room to hotel",new_room_path %>
+    <%end%>
 </div> 

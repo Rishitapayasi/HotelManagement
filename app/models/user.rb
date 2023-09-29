@@ -7,7 +7,7 @@ class User < ApplicationRecord
     # has_secure_password  
     has_many :hotels, dependent: :destroy
     has_many :bookings, dependent: :destroy
-    
+    has_many :rooms
   
     validates :full_name, presence: true, length: { in: 1..50 }
     validates :email,  presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i} 

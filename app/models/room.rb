@@ -1,7 +1,8 @@
 class Room < ApplicationRecord
   belongs_to :hotel
   has_many :bookings
-  
+  belongs_to :user
+
   validates :room_no, presence: true, numericality: { greater_then: 0 }
   validates :room_price, presence: true, numericality: { greater_then: 0 }
 

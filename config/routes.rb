@@ -14,9 +14,8 @@ Rails.application.routes.draw do
   # put 'users', to: 'users#update'
   # delete 'users', to: 'users#destroy'
   resources :hotels 
-   
+  resources :rooms
   
-  post '/room/create', to: 'rooms#create'
   get '/available_hotels', to: 'customers#available_hotels'
   
   

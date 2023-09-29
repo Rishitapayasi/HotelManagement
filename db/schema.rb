@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_20_112750) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_29_055323) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -95,7 +95,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_20_112750) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "hotel_id", null: false
+    t.integer "user_id"
     t.index ["hotel_id"], name: "index_rooms_on_hotel_id"
+    t.index ["user_id"], name: "index_rooms_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -119,4 +121,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_20_112750) do
   add_foreign_key "bookings", "users"
   add_foreign_key "hotels", "users"
   add_foreign_key "rooms", "hotels"
+  add_foreign_key "rooms", "users"
 end
