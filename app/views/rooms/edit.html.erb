@@ -1,0 +1,25 @@
+
+<h1> Edit Room</h1>
+
+<%= form_with(model: @room) do |form| %>
+ 
+  <div>
+    <%= form.hidden_field :hotel_id, :value => params[:hotel_id] %>
+  </div>
+
+  <div>
+  <%= form.label :room_no, style: "display: block" %>
+  <%= form.text_field :room_no%>
+  </div>
+
+  <div>
+    <%= form.label :room_price, style: "display: block" %>
+    <%= form.text_field :room_price%>
+  </div>
+ 
+  <div>
+    <%= form.submit %>
+  </div>
+<%end%>
+    
+

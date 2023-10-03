@@ -34,6 +34,8 @@
     
       <%if current_user.type == 'Customer'%>
         <%= link_to "Book Room", new_booking_path(:room_id => room.id, :hotel_id => hotels.id)%>
+      <%else%>
+        <%= link_to "edit room", edit_room_path(:hotel_id => hotels.id)%>
       <%end%>
   <% end %>
   </p>

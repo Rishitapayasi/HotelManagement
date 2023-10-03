@@ -33,10 +33,10 @@ class BookingsController < ApplicationController
       if @booking.update(update_booking)
     
         format.html { redirect_to root_url, notice: "booking was successfully updated." }
-        format.json { render :show, status: :ok, location: @booking }
+        # format.json { render :show, status: :ok, location: @booking }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @booking.errors, status: :unprocessable_entity }
+        # format.json { render json: @booking.errors, status: :unprocessable_entity }
       end
     end
   end

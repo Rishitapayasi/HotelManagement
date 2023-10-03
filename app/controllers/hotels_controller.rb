@@ -42,10 +42,8 @@ class HotelsController < ApplicationController
       if @hotels.update(hotel_params)
         # debugger
         format.html { redirect_to root_url, notice: "hotel was successfully updated." }
-        format.json { render :show, status: :ok, location: @hotels }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @hotels.errors, status: :unprocessable_entity }
       end
     end
   end

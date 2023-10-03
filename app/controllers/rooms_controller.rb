@@ -1,8 +1,6 @@
 class RoomsController < ApplicationController
-  before_action :set_hotel, only: [:create]
-  debugger
+  
   def new 
-    debugger
     @room = current_user.rooms.new
   end
 
@@ -15,15 +13,31 @@ class RoomsController < ApplicationController
     end
   end
 
+  def edit 
+    @room = current_user.rooms.find(params[:id])
+  end
+
+  def update
+    respond_to do |format|
+      if @room.update(room_params)
+      #  debugger
+        format.html { redirect_to root_url, notice: "room was successfully updated." }
+        # format.json { render :show, status: :ok, location: @booking }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        # format.json { render json: @booking.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
   def room_params
-    params.permit(:room_no, :room_price, :hotel_id)
+    params.require(:room).permit(:room_no, :room_price, :hotel_id)
   end
 
-  def set_hotel 
-    @hotel=current_user.hotels.find(params[:id])  
-  end
-
+  # def update_room
+  #   params.require(:room).permit(:room_no, room_price)
+  # end
 end
 
 
