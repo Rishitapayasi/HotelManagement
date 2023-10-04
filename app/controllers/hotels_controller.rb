@@ -20,7 +20,6 @@ class HotelsController < ApplicationController
 
   def new 
     @hotels = current_user.hotels.new
-   
   end
   
   def create

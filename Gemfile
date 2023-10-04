@@ -59,8 +59,7 @@ gem 'activeadmin'
 gem 'devise'
 gem 'faker'
 
-#testing
-gem 'rspec-rails', '~> 6.0', '>= 6.0.3'
+
 
 # Use Sass to process CSS
 gem "sassc-rails"
